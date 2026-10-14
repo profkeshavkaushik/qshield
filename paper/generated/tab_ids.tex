@@ -1,0 +1,19 @@
+\begin{table*}[!t]
+\renewcommand{\arraystretch}{1.15}
+\caption{Binary misbehavior detection on the held-out test split (mean $\pm$ std over 5 seeds).}
+\label{tab:ids}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Model} & \textbf{Acc.} & \textbf{Prec.} & \textbf{Rec.} & \textbf{F1} & \textbf{AUC} \\
+\midrule
+Decision tree & 0.9251 $\pm$ 0.0024 & 0.9007 $\pm$ 0.0038 & 0.9182 $\pm$ 0.0054 & 0.9094 $\pm$ 0.0044 & 0.9246 $\pm$ 0.0029 \\
+Logistic regression & 0.9283 $\pm$ 0.0028 & 0.9760 $\pm$ 0.0022 & 0.8457 $\pm$ 0.0082 & 0.9062 $\pm$ 0.0053 & 0.9398 $\pm$ 0.0032 \\
+Random forest & 0.9601 $\pm$ 0.0016 & 0.9961 $\pm$ 0.0005 & 0.9060 $\pm$ 0.0051 & 0.9489 $\pm$ 0.0030 & 0.9614 $\pm$ 0.0026 \\
+XGBoost & 0.9593 $\pm$ 0.0016 & 0.9991 $\pm$ 0.0001 & 0.9014 $\pm$ 0.0055 & 0.9477 $\pm$ 0.0031 & 0.9617 $\pm$ 0.0025 \\
+RF+XGBoost ensemble & 0.9596 $\pm$ 0.0017 & 0.9992 $\pm$ 0.0001 & 0.9020 $\pm$ 0.0055 & 0.9481 $\pm$ 0.0031 & 0.9624 $\pm$ 0.0027 \\
+\bottomrule
+\end{tabular}
+\end{table*}

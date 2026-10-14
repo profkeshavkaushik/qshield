@@ -1,0 +1,16 @@
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.15}
+\caption{Effect of the feature set on the ensemble (mean $\pm$ std over 5 seeds, same splits).}
+\label{tab:ablation}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{\ifdim\width>\columnwidth\columnwidth\else\width\fi}{!}{\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Feature set} & \textbf{Features} & \textbf{F1} & \textbf{AUC} & \textbf{FPR} \\
+\midrule
+Per-message fields only & 24 & 0.7049 $\pm$ 0.0055 & 0.8059 $\pm$ 0.0042 & 0.0081 $\pm$ 0.0010 \\
+Per-message fields + history & 39 & 0.9481 $\pm$ 0.0031 & 0.9624 $\pm$ 0.0027 & 0.0005 $\pm$ 0.0000 \\
+\bottomrule
+\end{tabular}}
+\end{table}

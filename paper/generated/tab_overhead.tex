@@ -1,0 +1,18 @@
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.15}
+\caption{Per-BSM size and the number of vehicles whose beacons alone fill one 802.11p channel (offered airtime load of 100\%).}
+\label{tab:overhead}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{\ifdim\width>\columnwidth\columnwidth\else\width\fi}{!}{\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+\textbf{Scheme} & \textbf{Sig.} & \textbf{Cert.} & \textbf{BSM+cert} & \textbf{BSM+dig.} & \multicolumn{2}{c}{\textbf{Max.\ vehicles}} \\
+ & (B) & (B) & (B) & (B) & 6\,Mb/s & 27\,Mb/s \\
+\midrule
+ECDSA P-256 & 72 & 169 & 291 & 130 & 331 & 992 \\
+RSA-3072-PSS & 384 & 838 & 1{,}272 & 442 & 123 & 462 \\
+Q-SHIELD (ML-DSA-65) & 3{,}309 & 5{,}293 & 8{,}652 & 3{,}367 & 17 & 74 \\
+\bottomrule
+\end{tabular}}
+\end{table}

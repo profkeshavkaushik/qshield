@@ -1,0 +1,28 @@
+\begin{tikzpicture}[
+  >=Stealth, font=\scriptsize,
+  actor/.style={draw=#1, fill=#1!15, rounded corners=3pt, minimum width=2.3cm, minimum height=0.7cm, align=center, line width=0.9pt},
+  phase/.style={draw=qgray!60, fill=gray!12, rounded corners=2pt, minimum width=8.6cm, minimum height=0.5cm, align=center, font=\scriptsize\bfseries},
+  note/.style={text=qgray, font=\scriptsize, align=left},
+  msg/.style={-{Stealth[length=5pt]}, line width=1pt}
+]
+\node[actor=qgreen]  (vh) at (0,0)   {\textbf{Vehicle (OBU)}};
+\node[actor=qorange] (rs) at (7.4,0) {\textbf{RSU}};
+\draw[qgreen!70,  dashed, line width=0.8pt] (0,-0.35)   -- (0,-11.4);
+\draw[qorange!70, dashed, line width=0.8pt] (7.4,-0.35) -- (7.4,-11.4);
+
+\node[phase] at (3.7,-1.0) {Phase 1: Ephemeral key exchange};
+\node[note, anchor=west] at (0.15,-1.75) {fresh $(pk_e,sk_e)$ \\ nonce $\eta_V$};
+\draw[msg, qgreen] (0,-2.65) -- node[above=1pt] {$\mathsf{cert}_V,\ pk_e,\ \eta_V,\ \sigma_V$} (7.4,-2.65);
+\node[note, anchor=east] at (7.25,-3.45) {verify $\mathsf{cert}_V$, $\sigma_V$ \\ encapsulate to $pk_e$};
+\draw[msg, qorange] (7.4,-4.45) -- node[above=1pt] {$\mathsf{cert}_R,\ ct,\ \eta_R,\ \sigma_R,\ t_R$} (0,-4.45);
+\node[note, anchor=west] at (0.15,-5.25) {verify $\mathsf{cert}_R$, $\sigma_R$, $t_R$ \\ decapsulate, erase $sk_e$};
+\draw[msg, qgreen] (0,-6.2) -- node[above=1pt] {key confirmation $t_V$} (7.4,-6.2);
+\node[note, anchor=east] at (7.25,-6.85) {verify $t_V$};
+
+\node[phase] at (3.7,-7.7) {Phase 2: Protected V2I report (AES-256-GCM under $k_{enc}$)};
+\draw[msg, qgreen] (0,-8.55) -- node[above=1pt] {sealed misbehaviour report} (7.4,-8.55);
+
+\node[phase] at (3.7,-9.5) {Phase 3: Signed BSM broadcast (no session key)};
+\draw[msg, qgreen] (0,-10.4) -- node[above=1pt] {$m,\ \tau,\ \mathit{ctr},\ \sigma$ ($+\ \mathsf{cert}_V$ once per second)} (7.4,-10.4);
+\node[note, anchor=east] at (7.25,-11.0) {window and counter check, verify $\sigma$};
+\end{tikzpicture}

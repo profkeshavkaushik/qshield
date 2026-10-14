@@ -1,0 +1,51 @@
+{
+ "env": {
+  "cpu_count": 2,
+  "cpu_model": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+  "cryptography": "50.0.2",
+  "liboqs": "0.16.0",
+  "liboqs_python": "0.16.0.1",
+  "machine": "x86_64",
+  "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
+  "python": "3.13.16"
+ },
+ "params": {
+  "n": 5000,
+  "out": "results"
+ },
+ "suites": {
+  "ecdhe-ecdsa": {
+   "throughput_msgs_per_s": 8459.723305560152,
+   "verify_pipeline": {
+    "ci95_ms": 0.0017454123452249027,
+    "mean_ms": 0.1172268286,
+    "median_ms": 0.097578,
+    "n": 5000,
+    "p95_ms": 0.17891955,
+    "std_ms": 0.0629690257793492
+   }
+  },
+  "ecdhe-rsa3072": {
+   "throughput_msgs_per_s": 12786.000814332301,
+   "verify_pipeline": {
+    "ci95_ms": 0.0016360274475502683,
+    "mean_ms": 0.0775568438,
+    "median_ms": 0.0646075,
+    "n": 5000,
+    "p95_ms": 0.12013145000000001,
+    "std_ms": 0.059022760325005794
+   }
+  },
+  "qshield": {
+   "throughput_msgs_per_s": 21337.627442665005,
+   "verify_pipeline": {
+    "ci95_ms": 0.0013787515529588797,
+    "mean_ms": 0.0463597252,
+    "median_ms": 0.03948,
+    "n": 5000,
+    "p95_ms": 0.07045255000000002,
+    "std_ms": 0.04974104962595445
+   }
+  }
+ }
+}

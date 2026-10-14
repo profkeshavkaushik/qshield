@@ -1,0 +1,66 @@
+\begin{tikzpicture}[
+  >=Stealth, font=\small,
+  cloudb/.style={draw=qblue, fill=lightblue, rounded corners=5pt, minimum width=3.4cm, minimum height=1.2cm, align=center, line width=1pt},
+  rsub/.style={draw=qorange, fill=lightorange, rounded corners=4pt, minimum width=3.0cm, minimum height=1.1cm, align=center, line width=1pt},
+  carb/.style={draw=qgreen, fill=lightgreen, rounded corners=3pt, minimum width=1.7cm, minimum height=0.9cm, align=center, line width=0.8pt, font=\footnotesize},
+  tierlbl/.style={font=\footnotesize\bfseries, rotate=90},
+  wire/.style={draw=qgray, line width=0.9pt},
+  cloudlink/.style={draw=qblue, line width=1.3pt},
+  vtoi/.style={draw=qblue, dotted, line width=1.1pt, -{Stealth[length=5pt]}},
+  vtov/.style={draw=qred, dashed, line width=1.1pt, {Stealth[length=4pt]}-{Stealth[length=4pt]}}
+]
+\fill[lightblue!45]   (-1.2,7.2) rectangle (16.2,9.2);
+\fill[lightorange!55] (-1.2,4.0) rectangle (16.2,6.0);
+\fill[lightgreen!55]  (-1.2,0.0) rectangle (16.2,2.8);
+\node[tierlbl, text=qblue]   at (-0.7,8.2) {Tier 1: Cloud};
+\node[tierlbl, text=qorange] at (-0.7,5.0) {Tier 2: Edge};
+\node[tierlbl, text=qgreen]  at (-0.7,1.4) {Tier 3: Vehicles};
+
+\node[cloudb] (ca)  at (2.3,8.2)  {\textbf{Certificate}\\Authority (CA)};
+\node[cloudb] (tms) at (7.8,8.2)  {\textbf{Traffic Mgmt.}\\Server (TMS)};
+\node[cloudb] (pki) at (13.3,8.2) {\textbf{PQ-PKI}\\FIPS 203/204};
+\draw[cloudlink] (ca.east) -- (tms.west);
+\draw[cloudlink] (tms.east) -- (pki.west);
+
+\node[rsub] (r1) at (2.3,5.0)  {\textbf{RSU-1}\\Q-SHIELD};
+\node[rsub] (r2) at (7.8,5.0)  {\textbf{RSU-2}\\Q-SHIELD};
+\node[rsub] (r3) at (13.3,5.0) {\textbf{RSU-3}\\Q-SHIELD};
+\draw[wire] (ca.south)  -- (r1.north);
+\draw[wire] (tms.south) -- (r2.north);
+\draw[wire] (pki.south) -- (r3.north);
+\draw[wire] (r1.east) -- (r2.west);
+\draw[wire] (r2.east) -- (r3.west);
+
+\node[carb] (v1) at (1.1,1.7)  {\textbf{V1}\\OBU};
+\node[carb] (v2) at (3.5,1.7)  {\textbf{V2}\\OBU};
+\node[carb] (v3) at (5.9,1.7)  {\textbf{V3}\\OBU};
+\node[carb] (v4) at (7.8,1.7)  {\textbf{V4}\\OBU};
+\node[carb] (v5) at (9.7,1.7)  {\textbf{V5}\\OBU};
+\node[carb] (v6) at (12.1,1.7) {\textbf{V6}\\OBU};
+\node[carb] (v7) at (14.5,1.7) {\textbf{V7}\\OBU};
+
+\draw[vtoi] (v1.north) -- ($(r1.south)+(-0.7,0)$);
+\draw[vtoi] (v2.north) -- ($(r1.south)+(0.7,0)$);
+\draw[vtoi] (v3.north) -- ($(r2.south)+(-1.0,0)$);
+\draw[vtoi] (v4.north) -- (r2.south);
+\draw[vtoi] (v5.north) -- ($(r2.south)+(1.0,0)$);
+\draw[vtoi] (v6.north) -- ($(r3.south)+(-0.7,0)$);
+\draw[vtoi] (v7.north) -- ($(r3.south)+(0.7,0)$);
+
+\draw[vtov] ($(v2.south)+(0.3,0)$) -- ++(0,-0.35) coordinate (a) -- ($(v3.south |- a)+(-0.3,0)$) -- ($(v3.south)+(-0.3,0)$);
+\node[font=\scriptsize, text=qred, below] at ($(a)!0.5!(a -| v3.south)$) {V2V};
+\draw[vtov] ($(v5.south)+(0.3,0)$) -- ++(0,-0.35) coordinate (b) -- ($(v6.south |- b)+(-0.3,0)$) -- ($(v6.south)+(-0.3,0)$);
+\node[font=\scriptsize, text=qred, below] at ($(b)!0.5!(b -| v6.south)$) {V2V};
+
+\fill[gray!25] (-1.2,-0.9) rectangle (16.2,-0.45);
+\draw[gray!70, line width=1pt] (-1.2,-0.9) -- (16.2,-0.9);
+\draw[gray!70, line width=1pt] (-1.2,-0.45) -- (16.2,-0.45);
+\draw[white, dashed, line width=0.8pt] (-1.0,-0.675) -- (16.0,-0.675);
+
+\begin{scope}[shift={(0.2,-1.8)}, font=\footnotesize]
+  \draw[cloudlink] (0,0) -- (0.9,0);        \node[anchor=west] at (1.0,0) {Cloud backbone};
+  \draw[wire]      (4.2,0) -- (5.1,0);      \node[anchor=west] at (5.2,0) {Wired backhaul};
+  \draw[vtoi]      (8.3,0) -- (9.2,0);      \node[anchor=west] at (9.3,0) {V2I (PQ-secured)};
+  \draw[vtov]      (12.6,0) -- (13.5,0);    \node[anchor=west] at (13.6,0) {V2V BSM broadcast};
+\end{scope}
+\end{tikzpicture}

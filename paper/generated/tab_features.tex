@@ -1,0 +1,22 @@
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.15}
+\caption{The eight features with the highest mean importance (average of RF and XGBoost importances, mean over seeds).}
+\label{tab:features}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{\ifdim\width>\columnwidth\columnwidth\else\width\fi}{!}{\begin{tabular}{@{}lp{3.6cm}r@{}}
+\toprule
+\textbf{Feature} & \textbf{Description} & \textbf{Importance} \\
+\midrule
+\texttt{h\_pred\_err} & distance from the position predicted by the previous message & 0.3083 \\
+\texttt{h\_disp\_vs\_heading} & angle between displacement and reported heading & 0.1078 \\
+\texttt{h\_implied\_speed} & distance divided by elapsed time (m/s) & 0.1004 \\
+\texttt{h\_speed\_gap} & implied speed minus reported speed & 0.0766 \\
+\texttt{h\_dist} & distance moved since the previous message (m) & 0.0741 \\
+\texttt{h\_dt} & time since the previous message (s) & 0.0727 \\
+\texttt{h\_speed\_mag} & reported speed magnitude (m/s) & 0.0290 \\
+\texttt{h\_heading\_change} & angle between consecutive headings (rad) & 0.0284 \\
+\bottomrule
+\end{tabular}}
+\end{table}

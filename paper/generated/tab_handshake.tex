@@ -1,0 +1,17 @@
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.15}
+\caption{Full mutual-authentication handshake: measured compute time (ms, median with 95th percentile) and bytes on the wire.}
+\label{tab:handshake}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{\ifdim\width>\columnwidth\columnwidth\else\width\fi}{!}{\begin{tabular}{@{}lccccr@{}}
+\toprule
+\textbf{Suite} & \textbf{OBU} & \textbf{RSU} & \textbf{Total} & \textbf{Cert.\,(B)} & \textbf{Wire\,(B)} \\
+\midrule
+ECDHE-ECDSA & 0.382 (0.604) & 0.379 (0.597) & 0.757 (1.21) & 168 & 705 \\
+ECDHE-RSA-3072 & 2.39 (3.89) & 2.42 (3.94) & 4.83 (7.79) & 838 & 2{,}670 \\
+Q-SHIELD & 0.318 (0.636) & 0.299 (0.601) & 0.607 (1.21) & 5{,}293 & 19{,}572 \\
+\bottomrule
+\end{tabular}}
+\end{table}

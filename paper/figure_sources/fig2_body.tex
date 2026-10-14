@@ -1,0 +1,42 @@
+\begin{tikzpicture}[
+  >=Stealth, font=\small,
+  iobox/.style={draw=qgray, fill=gray!10, rounded corners=3pt, minimum width=2.8cm, minimum height=1.3cm, align=center, line width=0.9pt},
+  sub/.style={draw=#1, fill=#1!10, rounded corners=3pt, minimum height=1.2cm, align=center, line width=0.9pt, font=\footnotesize},
+  flow/.style={-{Stealth[length=5pt]}, line width=1pt}
+]
+\node[iobox] (inp) at (0,3.2) {V2X Message\\Stream\\(BSMs, 10\,Hz)};
+
+\draw[draw=qpurple, fill=lightpurple, rounded corners=6pt, line width=1.2pt] (3.4,4.8) rectangle (14.9,7.8);
+\node[font=\small\bfseries, text=qpurple] at (9.15,7.4) {Module 1: Post-Quantum Authentication (PQA)};
+\node[sub=qblue, minimum width=3.6cm] (kyber) at (6.3,5.9)  {\textbf{ML-KEM-768}\\FIPS 203 (Kyber)\\key encapsulation};
+\node[sub=qblue, minimum width=3.6cm] (dil)   at (12.0,5.9) {\textbf{ML-DSA-65}\\FIPS 204 (Dilithium3)\\digital signature};
+\draw[flow, qpurple] (kyber.east) -- (dil.west);
+
+\draw[draw=qgreen, fill=lightgreen, rounded corners=4pt, line width=1.1pt] (3.4,3.0) rectangle (14.9,4.2);
+\node[font=\footnotesize, align=center] at (9.15,3.6) {\textbf{Secure Context Store}\\session keys \quad$|$\quad BSM window \quad$|$\quad pseudonym cache};
+
+\draw[draw=qred, fill=lightred, rounded corners=6pt, line width=1.2pt] (3.4,-1.5) rectangle (14.9,2.4);
+\node[font=\small\bfseries, text=qred] at (9.15,2.0) {Module 2: Ensemble Intrusion Detection (E-IDS)};
+\node[sub=qorange, minimum width=3.0cm, minimum height=1.4cm] (feat) at (5.3,0.2) {\textbf{Feature extraction}\\per-message features};
+\node[sub=qred, minimum width=2.8cm, minimum height=0.9cm] (rf)  at (9.2,0.85)  {\textbf{Random Forest}\\100 trees};
+\node[sub=qred, minimum width=2.8cm, minimum height=0.9cm] (xgb) at (9.2,-0.55) {\textbf{XGBoost}\\200 estimators};
+\node[sub=qgreen, minimum width=2.9cm, minimum height=1.4cm] (fuse) at (13.0,0.15) {\textbf{Soft-voting fusion}\\$\alpha$ tuned on val.\ split};
+
+\draw[flow, qorange] ($(feat.east)+(0,0.3)$)  -- (rf.west);
+\draw[flow, qorange] ($(feat.east)+(0,-0.3)$) -- (xgb.west);
+\draw[flow, qred] (rf.east)  -- ($(fuse.west)+(0,0.3)$);
+\draw[flow, qred] (xgb.east) -- ($(fuse.west)+(0,-0.3)$);
+
+\node[iobox] (aout) at (17.1,6.3) {Session key $K$\\+ auth.\ token};
+\node[iobox] (iout) at (17.1,0.45) {Attack label\\+ IDS alert};
+
+\draw[flow] (inp.east) -- (2.4,3.2) |- (3.4,6.3);
+\draw[flow] (inp.east) -- (2.4,3.2) |- (3.4,0.45);
+\draw[flow, qblue] (14.9,6.3) -- (aout.west);
+\draw[flow, qred]  (14.9,0.45) -- (iout.west);
+
+\draw[<->, qgreen, dashed, line width=1pt] (7.0,4.8) -- (7.0,4.2);
+\draw[<->, qgreen, dashed, line width=1pt] (11.3,4.8) -- (11.3,4.2);
+\draw[<->, qgreen, dashed, line width=1pt] (7.0,3.0) -- (7.0,2.4);
+\draw[<->, qgreen, dashed, line width=1pt] (11.3,3.0) -- (11.3,2.4);
+\end{tikzpicture}
